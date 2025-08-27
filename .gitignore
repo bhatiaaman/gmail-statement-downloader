@@ -21,7 +21,10 @@ env/
 venv/
 
 # 📄 PDFs
-*.pdf
+# Ignore downloaded and decrypted PDFs, but allow samples
+downloads/
+*_FAILED.pdf
+temp_*.pdf
 
 # 💻 OS-specific
 .DS_Store
