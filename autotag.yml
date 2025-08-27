@@ -1,0 +1,38 @@
+name: Auto Tag Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Read version from file
+        id: get_version
+        run: |
+          VERSION=$(cat version.txt | tr -d '\n')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "Tag v${VERSION} already exists. Skipping tagging."
+            echo "SKIP_TAG=true" >> $GITHUB_ENV
+          else
+            echo "SKIP_TAG=false" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Create and push tag
+        if: env.SKIP_TAG == 'false'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin "v${VERSION}"
