@@ -1,0 +1,28 @@
+# 🔐 Sensitive credentials
+credentials.json
+
+# 🧪 Temporary and failed files
+*_FAILED.pdf
+temp_*.pdf
+
+# 📝 Logs
+*.log
+download_log.txt
+
+# 🐍 Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 📦 Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# 📄 PDFs
+*.pdf
+
+# 💻 OS-specific
+.DS_Store
+Thumbs.db
